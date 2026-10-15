@@ -1,0 +1,123 @@
+<!doctype html><meta charset="utf-8">
+<style>
+@font-face{font-family:Abril;src:url(fonts/abril-fatface-latin-400-normal.woff2)}
+@font-face{font-family:Gaegu;font-weight:700;src:url(fonts/gaegu-latin-700-normal.woff2)}
+@font-face{font-family:Gaegu;font-weight:400;src:url(fonts/gaegu-latin-400-normal.woff2)}
+:root{--pink:#d09492;--terra:#cb6249;--peach:#f4bf80;--mint:#b2ddd1;--slate:#9facbd;--teal:#639494;--sky:#c3dbe3;--cream:#f4e3c6;--taupe:#a8887c;--beige:#ddd0c3;--ink:#1d1a18}
+*{box-sizing:border-box;margin:0}
+body{background:#888}
+.slide{position:relative;width:1920px;height:1080px;overflow:hidden;font-family:Gaegu,cursive;font-weight:700;color:var(--ink);
+ background:
+  url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='.8' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 .5 0 0 0 0 .4 0 0 0 0 .3 0 0 0 .09 0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E"),
+  repeating-linear-gradient(0deg,transparent 0 108px,rgba(210,140,140,.28) 108px 111px),
+  repeating-linear-gradient(90deg,transparent 0 108px,rgba(120,170,160,.14) 108px 110px),#f0e9e0}
+.slide>*{position:absolute}
+.deco{z-index:0}.c{z-index:1}
+h1,h2{font-family:Abril,serif;font-weight:400;color:var(--taupe);text-shadow:4px 4px 0 #fff;text-align:center;left:0;right:0}
+h2{top:60px;font-size:112px;line-height:1.05}
+.blob{border-radius:63% 37% 54% 46%/55% 48% 52% 45%}
+.card{border-radius:70px}
+.t{font-size:44px;line-height:1.25}
+.s{font-size:34px;line-height:1.25;text-align:center}
+.pill{border-radius:60px 44px 56px 40px/44px 56px 40px 60px;display:flex;align-items:center;justify-content:center;text-align:center}
+.num{width:96px;height:96px;border-radius:50%;background:var(--mint);display:flex;align-items:center;justify-content:center;font-size:52px}
+</style>
+<body>
+<div class="slide" id="s1"></div><div class="slide" id="s2"></div><div class="slide" id="s3"></div><div class="slide" id="s4"></div><div class="slide" id="s5"></div>
+<div class="slide" id="s6"></div><div class="slide" id="s7"></div><div class="slide" id="s8"></div><div class="slide" id="s9"></div><div class="slide" id="s10"></div>
+<script>
+const C=n=>`var(--${n})`;
+function wavy(r,n,a){let d='';const k=n*14;for(let i=0;i<=k;i++){const t=i/k*Math.PI*2,rr=r*(1-a+a*Math.sin(n*t));d+=(i?'L':'M')+(r+rr*Math.cos(t)).toFixed(1)+' '+(r+rr*Math.sin(t)).toFixed(1)}return d+'Z'}
+const add=(id,html)=>document.getElementById(id).insertAdjacentHTML('beforeend',html);
+const blob=(id,x,y,w,h,col,rot=0,r='')=>add(id,`<div class="deco blob" style="left:${x}px;top:${y}px;width:${w}px;height:${h}px;background:${C(col)};transform:rotate(${rot}deg);${r}"></div>`);
+const burst=(id,x,y,s,col,n=14,a=.09)=>add(id,`<svg class="deco" style="left:${x}px;top:${y}px" width="${s}" height="${s}" viewBox="0 0 ${s} ${s}"><path transform="scale(${s/ (2*s/2)})" d="${wavy(s/2,n,a)}" fill="${C(col)}"/></svg>`);
+const xf=(id,x,y,s,col='slate')=>add(id,`<svg class="deco" style="left:${x}px;top:${y}px" width="${s}" height="${s}" viewBox="-100 -100 200 200"><g fill="${C(col)}"><rect x="-17" y="-95" width="34" height="190" rx="17" transform="rotate(45)"/><rect x="-17" y="-95" width="34" height="190" rx="17" transform="rotate(-45)"/></g></svg>`);
+const leaf=(id,x,y,w,h,rot,col='teal')=>add(id,`<div class="deco" style="left:${x}px;top:${y}px;width:${w}px;height:${h}px;background:${C(col)};border-radius:100% 0 100% 0;transform:rotate(${rot}deg)"></div>`);
+const el=(id,cls,style,html)=>add(id,`<div class="${cls}" style="${style}">${html}</div>`);
+const title=(id,html,top)=>add(id,`<h2 class="c" ${top?`style="top:${top}px"`:''}>${html}</h2>`);
+
+/* 1 title */
+blob('s1',-120,-80,520,420,'slate',20);blob('s1',700,-120,520,220,'mint');blob('s1',1560,700,520,480,'slate',-20);blob('s1',720,940,520,220,'mint');
+blob('s1',1540,-120,560,420,'peach',0);burst('s1',1700,-60,300,'terra',16);blob('s1',-120,780,420,380,'peach');burst('s1',-80,860,300,'terra',16);
+burst('s1',430,120,150,'terra',14);burst('s1',1360,800,150,'terra',14);burst('s1',60,500,150,'sky',14);burst('s1',1700,440,150,'sky',14);xf('s1',1350,50,120);xf('s1',470,900,120);
+add('s1',`<svg class="deco" style="left:350px;top:200px" width="1220" height="680"><g fill="${C('pink')}"><rect x="110" y="105" width="1000" height="470"/>${[0,1,2,3,4].map(i=>`<circle cx="${110+i*250}" cy="105" r="125"/><circle cx="${110+i*250}" cy="575" r="125"/>`).join('')}${[0,1,2].map(i=>`<circle cx="110" cy="${105+i*235}" r="125"/><circle cx="1110" cy="${105+i*235}" r="125"/>`).join('')}</g></svg>`);
+el('s1','c','left:350px;top:310px;width:1220px;text-align:center;font-family:Abril;font-weight:400;font-size:150px;line-height:1.05;color:#fff;text-shadow:5px 5px 0 #8a5a56','INCLUSIVE<br>EDUCATION');
+el('s1','c','left:350px;top:640px;width:1220px;text-align:center;font-size:62px;color:#fff;text-shadow:3px 3px 0 #8a5a56;transform:rotate(-3deg)','Group Project By: Fauget Team');
+
+/* 2 team */
+blob('s2',-80,-60,400,300,'mint');blob('s2',1600,-60,400,300,'mint');leaf('s2',50,780,160,300,-15);leaf('s2',1700,780,160,300,15);
+title('s2','Our Team',70);
+['Francois<br>Mercer','Estelle<br>Darcy','Muhammad<br>Patel','Drew<br>Feig','Chidi<br>Eze','Mariana<br>Napolitani'].forEach((n,i)=>
+ el('s2','c blob',`left:${230+(i%3)*500}px;top:${300+Math.floor(i/3)*370}px;width:470px;height:300px;background:${C('sky')};display:flex;align-items:center;justify-content:center;text-align:center;font-size:64px;line-height:1.15;transform:rotate(${[-2,1.5,-1,1,-1.5,2][i]}deg)`,n));
+
+/* 3 what is */
+title('s3','What is Inclusive Education?',60);
+xf('s3',60,330,200);xf('s3',60,590,200);xf('s3',1660,330,200);xf('s3',1660,590,200);
+el('s3','c card','left:190px;top:290px;width:1540px;height:640px;background:var(--beige)','');
+el('s3','c t','left:310px;top:340px;width:1300px','• All learners, including those with disabilities and learning differences, study <u style="text-decoration-color:var(--terra);text-decoration-thickness:6px">together in the same classrooms</u>, with the support they need to succeed.');
+el('s3','c t','left:310px;top:620px;width:1300px','• It is not about making a child fit the school. It is about <u style="text-decoration-color:var(--terra);text-decoration-thickness:6px">changing the school</u> so every child fits.');
+[['Same classroom','pink'],['Right support','peach'],['Real belonging','mint']].forEach(([t,c],i)=>el('s3','c pill',`left:${360+i*430}px;top:815px;width:390px;height:80px;background:${C(c)};font-size:44px`,t));
+
+/* 4 principles */
+blob('s4',90,-120,420,200,'terra');blob('s4',1400,-120,420,200,'terra');
+title('s4','Principles of<br>Inclusive Education',50);
+[['Diversity<br>&amp; Equity','Every difference is valued and every learner gets what they need.'],['Accessibility','Spaces, materials and teaching every learner can reach.'],['Participation','All learners join lessons, play and school life.'],['Supportive<br>Environment','Trained teachers, peer support and a culture of respect.']].forEach(([h,d],i)=>{
+ const x=70+i*455;burst('s4',x,400,380,'pink',16,.07);
+ el('s4','c s',`left:${x}px;top:520px;width:380px;font-size:44px`,h);
+ el('s4','c num',`left:${x+270}px;top:690px;width:96px`,i+1+'.');
+ el('s4','c s',`left:${x-5}px;top:800px;width:390px;font-size:34px`,d)});
+
+/* 5 benefits */
+leaf('s5',150,100,180,160,0,'mint');leaf('s5',1600,100,180,160,90,'mint');
+title('s5','Benefits of Inclusive<br>Education',50);
+[['For Students<br>with Disabilities','Learn beside their peers, build friendships and confidence, and aim higher.'],['For All<br>Students','Grow in empathy and teamwork, and enjoy lessons designed for many ways of learning.'],['For<br>Society','Fewer barriers, stronger communities and adults ready to live and work with everyone.']].forEach(([h,d],i)=>{
+ const x=140+i*580;blob('s5',x,430,520,590,'cream',0,'border-radius:50%');
+ el('s5','c pill',`left:${x-10}px;top:380px;width:540px;height:150px;background:${C('peach')};font-size:48px;line-height:1.1`,h);
+ el('s5','c s',`left:${x+40}px;top:590px;width:440px;font-size:42px`,d)});
+
+/* 6 barriers */
+xf('s6',70,40,130,'slate');xf('s6',1720,40,130,'slate');
+title('s6','Barriers to Inclusion',60);
+[['Physical','Stairs without ramps, crowded rooms, inaccessible toilets.','pink'],['Attitudes','Low expectations, stigma, labelling and bullying.','peach'],['Curriculum &amp; Communication','One-size-fits-all lessons; no braille, sign language or large print.','sky'],['Resources &amp; Policy','Large classes, too few trained teachers, limited funding.','mint']].forEach(([h,d,c],i)=>{
+ const x=130+(i%2)*850,y=270+Math.floor(i/2)*390;
+ el('s6','c card',`left:${x}px;top:${y}px;width:800px;height:340px;background:${C(c)}`,'');
+ el('s6','c',`left:${x+50}px;top:${y+30}px;width:700px;font-size:56px;line-height:1.1`,h);
+ el('s6','c t',`left:${x+50}px;top:${y+(h.length>14?170:130)}px;width:700px;font-size:42px`,d)});
+
+/* 7 strategies */
+leaf('s7',-60,900,150,260,-15);leaf('s7',1830,900,150,260,15);
+title('s7','Making It Work in the Classroom',60);
+[['Universal Design for Learning','Offer many ways to engage, understand and show learning.'],['Differentiated teaching','Adjust pace, tasks and support to each learner.'],['Peer collaboration','Group work and buddy systems build belonging.'],['Assistive technology','Screen readers, captions, text-to-speech, alternative input.'],['Teacher &amp; family partnership','Ongoing training and shared goals with families.']].forEach(([h,d],i)=>{
+ const y=250+i*152;
+ el('s7','c num',`left:170px;top:${y}px;background:${C(['pink','peach','sky','mint','cream'][i])}`,i+1);
+ el('s7','c',`left:310px;top:${y-4}px;width:560px;font-size:50px;line-height:1.05;display:flex;align-items:center;height:104px`,h);
+ el('s7','c t',`left:900px;top:${y-4}px;width:840px;font-size:42px;line-height:1.1;display:flex;align-items:center;height:104px`,d)});
+
+/* 8 tech */
+blob('s8',-100,-100,420,300,'mint');blob('s8',1600,-100,420,300,'mint');
+title('s8','Technology for Inclusion',60);
+el('s8','c card','left:110px;top:270px;width:760px;height:700px;background:var(--beige)','');
+el('s8','c t','left:170px;top:310px;width:640px;font-size:42px','This deck is run by <u style="text-decoration-color:var(--terra);text-decoration-thickness:6px">hand gestures</u>: no clicker, no keyboard.<br><br>A webcam and hand tracking turn simple finger shapes into commands, a first step toward touch-free tools that more learners and presenters can use.');
+const G=[[[1,0,0,0,0],'Thumb (hand high)','Previous slide'],[[0,0,0,0,1],'Pinky (hand high)','Next slide'],[[0,1,0,0,0],'Index finger','Draw'],[[0,1,1,0,0],'Index + middle','Laser pointer'],[[0,1,0,0,1],'Index + pinky','Undo stroke']];
+G.forEach(([f,a,b],i)=>{const y=270+i*140;
+ el('s8','c card',`left:930px;top:${y}px;width:880px;height:120px;background:${C(['pink','peach','sky','mint','cream'][i])}`,'');
+ el('s8','c',`left:960px;top:${y+14}px;width:120px;height:96px;display:flex;gap:7px;align-items:flex-end;justify-content:center`,f.map(u=>`<div style="width:16px;height:${u?88:36}px;border-radius:9px;background:${u?'#3d6b6b':'rgba(0,0,0,.18)'}"></div>`).join(''));
+ el('s8','c',`left:1110px;top:${y+8}px;width:700px;height:104px;display:flex;flex-direction:column;justify-content:center;font-size:36px;line-height:1.05`,`<span style="opacity:.75">${a}</span><span style="font-size:52px">${b}</span>`)});
+
+/* 9 commitments */
+leaf('s9',60,40,150,250,-20);leaf('s9',1710,40,150,250,20);
+title('s9','Inclusion Is a Right',60);
+el('s9','c','left:200px;top:545px;width:1520px;height:10px;background:var(--taupe);border-radius:5px','');
+[['1994','Salamanca Statement','UNESCO calls on governments to welcome all children into mainstream schools.','pink'],['2006','UN CRPD, Article 24','Recognises the right of persons with disabilities to inclusive education.','peach'],['2015','Sustainable Development Goal 4','Inclusive and equitable quality education for all.','mint']].forEach(([y,h,d,c],i)=>{
+ const x=130+i*580;
+ el('s9','c',`left:${x+180}px;top:480px;width:140px;height:140px;border-radius:50%;background:${C(c)};border:8px solid #f0e9e0;display:flex;align-items:center;justify-content:center;font-size:48px`,y);
+ el('s9','c card',`left:${x}px;top:660px;width:500px;height:320px;background:${C('beige')}`,'');
+ el('s9','c',`left:${x+30}px;top:685px;width:440px;text-align:center;font-size:44px;line-height:1.05`,h);
+ el('s9','c s',`left:${x+30}px;top:810px;width:440px;font-size:34px`,d)});
+el('s9','c s','left:200px;top:270px;width:1520px;font-size:52px','Inclusive education is a commitment the world has already made.');
+
+/* 10 thanks */
+blob('s10',-200,40,600,800,'cream');blob('s10',1520,40,600,800,'cream');leaf('s10',30,60,150,260,-20);leaf('s10',30,780,150,260,20);leaf('s10',1740,60,150,260,20);leaf('s10',1740,780,150,260,-20);
+add('s10','<h1 class="c" style="top:150px;font-size:290px;line-height:.95">Thank<br>You</h1>');
+el('s10','c','left:0;right:0;top:820px;text-align:center;font-size:80px','Questions? · Fauget Team');
+</script>

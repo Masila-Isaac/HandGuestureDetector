@@ -1,0 +1,5 @@
+# .....newer mediapipe (>=0.10.15) removed the API that cvzone 1.6 relies on.
+opencv-python>=4.8,<4.11
+numpy<2
+mediapipe==0.10.14
+cvzone==1.6.1
